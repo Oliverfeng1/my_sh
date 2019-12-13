@@ -1,0 +1,5 @@
+#!/bin/bash
+echo -e "\n##############<MAIN_DES>##################\n"
+man 2 $1 | sed -n /SYNOPSIS/'{:start;n;/NAME\|SYNOPSIS\|DESCRIPTION\|RETURN VALUE\|ERRORS\|ATTRIBUTES\|CONFORMING TO\|NOTES\|BUGS\|SEE ALSO\|COLOPHON/q;p;b start}'
+echo -e "\n##############<RETURN_VALUE>##################\n"
+man 2 $1 | sed -n /"RETURN VALUE"/'{:start;n;/NAME\|SYNOPSIS\|DESCRIPTION\|RETURN VALUE\|ERRORS\|ATTRIBUTES\|CONFORMING TO\|NOTES\|BUGS\|SEE ALSO\|COLOPHON/q;p;b start}'
