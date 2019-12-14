@@ -23,7 +23,7 @@ if [ -e $conf_file ];then
             if [ "$answer" == "n" ] || [ "$answer" == "N" ];then
                 exit 0
             fi
-            temp_conf_file=`cat $conf_file|grep -v "/^$temp_name"`
+            temp_conf_file=`cat $conf_file|sed -n "/^$temp_name$/p"`
             echo $temp_conf_file > $conf_file
             break
         }
@@ -69,5 +69,5 @@ fi
 echo $name:$ip:$username:$dir:$passwd >> $conf_file
 
 #尝试成功登录一次
-$ssh $ip 
+$ssh $username@$ip 
 
