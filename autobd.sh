@@ -4,10 +4,8 @@
 bypy=$(which bypy)
 # Directories you want to backup
 back_dirs="/home/hjf/my_doc /home/hjf/my_sh /home/hjf/shell"
-curl -l www.baidu.com 2> /dev/null
-if [ $? != 0 ];then
-    exit -1
-fi
+curl -l www.baidu.com &> /dev/null
+[ $? != 0 ] && exit -1
 for dest_dir in $back_dirs
 do
 	remote_dir=${dest_dir##*/}

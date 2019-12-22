@@ -42,10 +42,6 @@ if [ -e $conf_file ];then
         if [ $sshname == $name ];then
             login_flag=1
             $sshpass -p "$passwd" $ssh $username@$ip
-            [ $? != 0 ] && {
-                echo "ssh记录失效，删除重新添加记录"
-                /usr/bin/addssh.sh
-            }   
             break
         fi
     done
