@@ -23,7 +23,7 @@ if [ -e $conf_file ];then
             if [ "$answer" == "n" ] || [ "$answer" == "N" ];then
                 exit 0
             fi
-            temp_conf_file=`cat $conf_file|sed -n "/^$temp_name$/p"`
+            temp_conf_file=`cat $conf_file|grep -v "^$temp_name:"`
             echo $temp_conf_file > $conf_file
             break
         }

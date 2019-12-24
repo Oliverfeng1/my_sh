@@ -7,7 +7,7 @@ local_download="$HOME/tftpboot"
 
 listlogin(){
 
-echo -e "name\t\tip\t\tusername\t\tdir\t\tpasswd"
+echo -e "name\tip\tusername\tdir\tpasswd"
 if [ -e $conf_file ];then
     for line in `cat $conf_file`
     do
@@ -16,7 +16,7 @@ if [ -e $conf_file ];then
         local username=`echo $line|cut -d : -f 3`
         local dir=`echo $line|cut -d : -f 4`
         local passwd=`echo $line|cut -d : -f 5`
-        echo -e "$name\t\t$ip\t\t$username\t\t$dir\t\t$passwd"
+        echo -e "$name  $ip  $username  $dir  $passwd"
     done
 fi
 
