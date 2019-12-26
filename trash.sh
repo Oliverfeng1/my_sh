@@ -7,7 +7,7 @@ LocalTrash="$HOME/.local/share/Trash/files"
 trash()
 {
     [ ! -d $LocalTrash ] && mkdir -p $LocalTrash
-    mv -b $@ $LocalTrash
+    mv --backup="numbered" $@ $LocalTrash
 }
 trashlist()
 {
