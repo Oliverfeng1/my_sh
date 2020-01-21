@@ -23,8 +23,7 @@ if [ -e $conf_file ];then
             if [ "$answer" == "n" ] || [ "$answer" == "N" ];then
                 exit 0
             fi
-            temp_conf_file=`cat $conf_file|grep -v "^$temp_name:"`
-            echo $temp_conf_file > $conf_file
+            sed "/^$temp_name/d" $conf_file &> /dev/null
             break
         }
     done
@@ -60,8 +59,7 @@ read dir
 
 #删除know_host文件对应的ip
 if [ -e "$know_host_file" ];then
-    new=`cat $know_host_file|grep -v "$ip"`
-    echo $new > $know_host_file
+    sed "/$ip/d" $know_host_file &> /dev/null
 fi
 
 #把记录添加到配置文件中

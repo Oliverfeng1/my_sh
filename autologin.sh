@@ -42,6 +42,9 @@ if [ -e $conf_file ];then
         if [ $sshname == $name ];then
             login_flag=1
             $sshpass -p "$passwd" $ssh $username@$ip
+            if [ $? != 0 ];then
+                echo "登录失败了，可能known_host记录过时或者不存在"
+            fi
             break
         fi
     done
@@ -54,7 +57,7 @@ fi
         exit 0
     else 
         echo ""
-        /usr/bin/addssh.sh 
+        /usr/bin/addssh
     fi
 }
 }
