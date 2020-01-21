@@ -23,7 +23,7 @@ if [ -e $conf_file ];then
             if [ "$answer" == "n" ] || [ "$answer" == "N" ];then
                 exit 0
             fi
-            sed "/^$temp_name/d" $conf_file &> /dev/null
+            sed -i "/^$temp_name/d" $conf_file
             break
         }
     done
@@ -59,7 +59,7 @@ read dir
 
 #删除know_host文件对应的ip
 if [ -e "$know_host_file" ];then
-    sed "/$ip/d" $know_host_file &> /dev/null
+    sed -i "/$ip/d" $know_host_file 
 fi
 
 #把记录添加到配置文件中
