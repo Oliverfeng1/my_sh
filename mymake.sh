@@ -14,9 +14,9 @@ for item in ${compile_file};do
         ${CC} -o ${name} ${item}
     elif [ ${end} == "java" ];then
         ${JAVAC} ${item}
-	[ $? == 0 ] && ${JAVA} ${name}	
+        [ $? == 0 ] && ${JAVA} ${name}	
     elif [ ${end} == "py" ];then
-	${PY} ${item}
+        ${PY} ${item}
     else
         echo "Unknown type "
         exit 1
