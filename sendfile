@@ -1,0 +1,46 @@
+#!/bin/bash
+argnum=2
+if [ $# != $argnum ];then
+	echo "Usage: `basename $0` [filename] [receiver_email]"
+	exit 1
+fi
+
+filename=$1
+[ ! -e $filename ] && {
+    echo "$filename不存在"
+    exit 1
+}
+
+#压缩
+if [ -d $filename ];then
+    abs_dir=`readlink -f $filename`
+    filename="`basename $abs_dir`.tar.gz"
+    cd `dirname $abs_dir`
+    tar -zcvf  $filename  "`basename $abs_dir`"  &> /dev/null 
+fi
+
+sendEmail=`which sendEmail`
+
+fromEmailAddress="13640203159@163.com"
+toEmailAddress=$2
+smtpServer="smtp.163.com"
+emailUser="13640203159@163.com"
+emailPass="1234567890abcde"
+emailTitle="`uname -rn`"
+emailInfo="`date +%F" "%T`"
+
+$sendEmail -f $fromEmailAddress \
+-t $toEmailAddress \
+-s $smtpServer \
+-xu $emailUser \
+-xp $emailPass \
+-u $emailTitle \
+-m $emailInfo \
+-o tls=no \
+-a $filename
+
+ret=$?
+
+rm -rf $filename &> /dev/null
+
+exit $ret
