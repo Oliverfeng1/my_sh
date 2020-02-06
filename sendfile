@@ -19,13 +19,17 @@ if [ -d $filename ];then
     tar -zcvf  $filename  "`basename $abs_dir`"  &> /dev/null 
 fi
 
+#依赖sendEmail，需安装sendEmail
 sendEmail=`which sendEmail`
 
-fromEmailAddress="13640203159@163.com"
+#发送邮件的邮箱
+fromEmailAddress="xxx@163.com"
 toEmailAddress=$2
 smtpServer="smtp.163.com"
-emailUser="13640203159@163.com"
-emailPass="1234567890abcde"
+#发送邮件的邮箱
+emailUser="xxx@163.com"
+#邮箱许可码
+emailPass="xxx"
 emailTitle="`uname -rn`"
 emailInfo="`date +%F" "%T`"
 
