@@ -41,10 +41,9 @@ $sendEmail -f $fromEmailAddress \
 -u $emailTitle \
 -m $emailInfo \
 -o tls=no \
+-o message-charset=gbk \
 -a $filename
 
 ret=$?
-
-rm -rf $filename &> /dev/null
 
 exit $ret
