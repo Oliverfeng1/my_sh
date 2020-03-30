@@ -2,6 +2,7 @@
 
 #get where the bypy install
 bypy=$(which bypy)
+if [ $? != 0 ] && exit 1
 # Directories you want to backup
 back_dirs="/home/hjf/my_doc /home/hjf/my_sh /home/hjf/XMIND"
 curl -l www.baidu.com &> /dev/null

@@ -7,7 +7,7 @@ conf_file="$HOME/.ssh/addssh"
 echo -n "新建立的ssh的名称: "
 read name
 [ -z $name ] && {
-    echo "name is not be empty"
+    echo "name should not be empty"
     exit 1
 }
 
@@ -32,28 +32,28 @@ fi
 echo -n "IP: "
 read ip
 [ -z $ip ] && {
-    echo "ip is not be empty"
+    echo "ip should not be empty"
     exit 1
 }
 
 echo -n "用户名: "
 read username
 [ -z $username ] && {
-    echo "username is not be empty"
+    echo "username should not be empty"
     exit 1
 }
 
 echo -n "密码: "
 read passwd
 [ -z $passwd ] && {
-    echo "passwd is not be empty"
+    echo "passwd should not be empty"
     exit 1
 }
 
 echo -n "传输路径: "
 read dir
 [ -z $dir ] && {
-    echo "dir is not be empty"
+    echo "dir should not be empty"
     exit 1
 }
 

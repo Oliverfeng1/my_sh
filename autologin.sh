@@ -95,7 +95,7 @@ fi
 
 cpt(){
 if [ $# != 2 ];then
-    echo "cpf sshname localFileName"
+    echo "cpt sshname localFileName"
     return 1
 fi
 local sshname=$1
