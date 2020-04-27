@@ -1,5 +1,5 @@
 #!/bin/bash
-argnum=2
+argnum=1
 if [ $# != $argnum ];then
 	echo "Usage: `basename $0` [filename] [receiver_email]"
 	exit 1
@@ -23,14 +23,14 @@ fi
 sendEmail=`which sendEmail`
 
 #发送邮件的邮箱
-fromEmailAddress="13640203159@163.com"
-toEmailAddress=$2
+fromEmailAddress="黄骏丰<13640203159@163.com>"
+toEmailAddress="863472527@qq.com"
 smtpServer="smtp.163.com"
 #发送邮件的邮箱
 emailUser="13640203159@163.com"
 #邮箱许可码
 emailPass="1234567890abcde"
-emailTitle="`uname -rn`"
+emailTitle="a email from `uname -rn`"
 emailInfo="`date +%F" "%T`"
 
 $sendEmail -f $fromEmailAddress \
