@@ -4,7 +4,7 @@ ssh=`which ssh`
 know_host_file="$HOME/.ssh/known_hosts"
 conf_file="$HOME/.ssh/addssh"
 local_download="$HOME/tftpboot"
-local_tmp_download="/tmp/ssh_download"
+local_tmp_download="$HOME/ssh_download"
 
 #有ssh记录返回0，否则返回1
 _isExistSsh()
@@ -189,7 +189,7 @@ cptf()
         return 1
     }
 
-    [ ! -d $local_tmp_download ] && rm $local_tmp_download
+    [ -d $local_tmp_download ] && rm $local_tmp_download/*
 
     cpf $srcSsh $srcWhere $local_tmp_download
     cpt $targetSsh $local_tmp_download/* $targetWhere 
