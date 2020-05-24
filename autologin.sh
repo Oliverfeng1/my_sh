@@ -1,4 +1,8 @@
 #!/bin/bash
+#autologin sshName
+#listlogin
+#cpt sshName localFile/localDir
+#cpf sshName remoteFile/remoteDir
 sshpass=`which sshpass`
 ssh=`which ssh`
 know_host_file="$HOME/.ssh/known_hosts"
@@ -188,7 +192,6 @@ cptf()
         echo "$targetSsh记录不存在"
         return 1
     }
-
     [ -d $local_tmp_download ] && rm $local_tmp_download/*
 
     cpf $srcSsh $srcWhere $local_tmp_download
