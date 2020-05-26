@@ -104,7 +104,7 @@ if [ $? != 0 ];then
         exit 0
     else 
         echo ""
-        /usr/bin/addssh
+        /usr/local/bin/addssh
     fi
     return 1
 fi

@@ -1,0 +1,43 @@
+#!/bin/bash
+clearGitNote()
+{
+    if [ -z $1 ];then
+        echo "clearGitNote dir"
+        return 
+    fi
+    cd $1
+    local needPng="`mktemp`"
+    local havePng=`mktemp`
+    local pngDir="./pic"
+    #需要的png文件
+    IFS=$'\n'
+    local file
+    for file in `find . -name '*.md'`
+    do
+        if [ ! -z "`cat $file | grep "\!\[.*\](.*)"`" ];then
+            local item
+            for item in `cat $file | grep "\!\[.*\](.*)"`
+            do
+                local picFile=`echo $item | cut -d '(' -f 2 | cut -d ')' -f 1`
+                readlink -f $picFile >> $needPng
+            done
+        fi
+    done
+    #所有的png文件
+    for file in `find $pngDir -name '*.png'` 
+    do
+        readlink -f $file >> $havePng
+    done
+    #备份
+    cp -ru $pngDir /tmp/
+    #删除不需要的png文件
+    for file in `cat $havePng`
+    do
+        if [ -z "`cat $needPng|grep $file`" ];then
+            rm $file
+        fi
+    done
+    rm $needPng
+    rm $havePng
+    cd - &> /dev/null
+}
