@@ -55,6 +55,7 @@ _getSshInfoDir()
 _getSshInfoPasswd()
 {
     local passwd=`echo $*|cut -d : -f 5`
+	passwd=`echo $passwd | base64 -d`
     echo $passwd
 }
 
@@ -198,3 +199,24 @@ cptf()
     cpt $targetSsh $local_tmp_download/* $targetWhere 
 }
 
+sshmount()
+{
+    if [ $# != 2 ];then
+        echo "sshmount sshName remoteDir"
+        return 1
+    fi
+    local sshname=$1
+    local remoteDir=$2
+    _isExistSsh $sshname
+    [ $? != 0 ] && {
+        echo "$sshname记录不存在"
+        return 1
+    }
+    local info=$(_getSshInfo $sshname)
+    local ip=$(_getSshInfoIp "$info")
+    local username=$(_getSshInfoUserName "$info")
+    local passwd=$(_getSshInfoPasswd "$info")
+    [ ! -d $HOME/sshfs ] && mkdir $HOME/sshfs
+    # $sshpass -p "$passwd"  sshfs $username@$ip:$remoteDir $HOME/sshfs
+    sshfs $username@$ip:$remoteDir $HOME/sshfs
+}

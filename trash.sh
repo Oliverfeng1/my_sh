@@ -12,6 +12,7 @@ trash()
 trashlist()
 {
     echo -e "================= Garbage Lists in Trash ================="
+    echo -e "================= $LocalTrash ================="
     echo -e "\a"
     echo -e "\aUse 'cleartrash' to clear all garbages in Trash!!!"
     ls -l $LocalTrash

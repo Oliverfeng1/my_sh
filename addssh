@@ -49,6 +49,7 @@ read passwd
     echo "passwd should not be empty"
     exit 1
 }
+passwd=$(echo $passwd|base64 -i)
 
 echo -n "传输路径: "
 read dir

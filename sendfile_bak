@@ -1,11 +1,13 @@
 #!/bin/bash
 argnum=1
-if [ $# != $argnum ];then
-	echo "Usage: `basename $0` [filename] [receiver_email]"
+if [ $# -lt 1 ] || [ $# -gt 2 ];then
+	echo "Usage: `basename $0` filename [receiver_email]"
 	exit 1
 fi
 
 filename=$1
+toEmailAddress=$2
+
 [ ! -e $filename ] && {
     echo "$filename不存在"
     exit 1
@@ -23,15 +25,44 @@ fi
 sendEmail=`which sendEmail`
 
 #发送邮件的邮箱
-fromEmailAddress="黄骏丰<13640203159@163.com>"
-toEmailAddress="863472527@qq.com"
+fromEmailAddress="Linux考试系统<13640203159@163.com>"
+[ -z $toEmailAddress ] && toEmailAddress="863472527@qq.com"
 smtpServer="smtp.163.com"
 #发送邮件的邮箱
 emailUser="13640203159@163.com"
 #邮箱许可码
 emailPass="1234567890abcde"
-emailTitle="a email from `uname -rn`"
-emailInfo="`date +%F" "%T`"
+emailTitle="考试结果"
+
+formatTxt()
+{
+	local file=$1
+	local IFS_OLD="$IFS"
+	IFS=$'\n'
+	for i in `cat $file`
+	do
+		echo "$i<br>"
+	done
+	IFS="$IFS_OLD"
+}
+emailInfo="\
+		<html> \
+			<head> \
+				<meta charset=\"utf-8\"> \
+    			<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> \
+    			<meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"> \
+			</head> \
+			<body> \
+				<h3 style=\"color: #111111;font-size: 20px;\">The details</h3> \
+				<ul> \
+					<li style=\"font-size:16px;\">日期 : `date +%F" "%T`</li> \
+					<li style=\"font-size:16px;\">平台 : `uname -rn` </li> \
+					<li style=\"font-size:16px;\">附件 : `echo $filename` </li> \
+				</ul> \
+			</body> \
+		</html> "
+
+
 
 $sendEmail -f $fromEmailAddress \
 -t $toEmailAddress \
@@ -41,7 +72,8 @@ $sendEmail -f $fromEmailAddress \
 -u $emailTitle \
 -m $emailInfo \
 -o tls=no \
--o message-charset=gbk \
+-o message-charset=utf-8 \
+-o message-content-type=html \
 -a $filename
 
 ret=$?
