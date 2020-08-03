@@ -193,7 +193,8 @@ cptf()
         echo "$targetSsh记录不存在"
         return 1
     }
-    [ -d $local_tmp_download ] && rm $local_tmp_download/*
+    [ -d $local_tmp_download ] && /usr/bin/rm -r $local_tmp_download
+    mkdir -p $local_tmp_download
 
     cpf $srcSsh $srcWhere $local_tmp_download
     cpt $targetSsh $local_tmp_download/* $targetWhere 
