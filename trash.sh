@@ -4,11 +4,21 @@ alias rm='trash'
 alias rl='trashlist'
 
 LocalTrash="$HOME/.local/share/Trash/files"
+
 trash()
 {
+    local files=""
     [ ! -d $LocalTrash ] && mkdir -p $LocalTrash
-    mv --backup="numbered" $@ $LocalTrash
+    while [ -n "$1" ];do
+        # 移除-r,-f等参数
+        if [[ ! $1 =~ ^- ]];then
+            files=$files" $1"
+        fi
+        shift
+    done
+    mv --backup="numbered" $files $LocalTrash
 }
+
 trashlist()
 {
     echo -e "================= Garbage Lists in Trash ================="
