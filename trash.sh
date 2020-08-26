@@ -4,7 +4,6 @@ alias rm='trash'
 alias rl='trashlist'
 
 LocalTrash="$HOME/.local/share/Trash/files"
-
 trash()
 {
     local files=""
@@ -12,7 +11,11 @@ trash()
     while [ -n "$1" ];do
         # 移除-r,-f等参数
         if [[ ! $1 =~ ^- ]];then
-            files=$files" $1"
+            if [ -z "$files" ];then
+                files=$1
+            else 
+                files=$files" $1"
+            fi
         fi
         shift
     done
